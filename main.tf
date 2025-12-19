@@ -243,7 +243,12 @@ resource "aws_ecs_service" "strapi" {
   cluster         = aws_ecs_cluster.strapi.id
   task_definition = aws_ecs_task_definition.strapi.arn
   desired_count   = 1
-  launch_type     = "FARGATE"
+  # launch_type     = "FARGATE"
+  capacity_provider_strategy {
+  capacity_provider = "FARGATE_SPOT"
+  weight            = 1
+}
+
 
   health_check_grace_period_seconds = 120  # 🔥 THIS IS MISSING
 
